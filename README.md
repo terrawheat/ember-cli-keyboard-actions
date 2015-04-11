@@ -29,8 +29,8 @@ Create an object on your component or view with one of the
 following keys to respond to the correct event:
 
   - keyDownActions
-  - keyUpActions *(NYI)*
-  - keyPressActions *(NYI)*
+  - keyUpActions
+  - keyPressActions
 
 Within this object, specific key events can be defined using
 either the name of the key, or the word 'key' followed by

@@ -1,6 +1,6 @@
 export default {
   8: 'backspace',
-  9: 'tab'
+  9: 'tab',
   13: 'enter',
   20: 'capsLock',
   27: 'escape',

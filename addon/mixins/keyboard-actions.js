@@ -5,23 +5,33 @@ export default Ember.Mixin.create({
   eventManager: Ember.Object.create({
     keyDown: function (e, view) {
       if ('keyCode' in e) {
-        return view.dispatchKeyDownFunction(e.keyCode);
+        return view.dispatchKeyFunction(e.keyCode, 'keyDown');
+      }
+    },
+    keyUp: function (e, view) {
+      if ('keyCode' in e) {
+        return view.dispatchKeyFunction(e.keyCode, 'keyUp');
+      }
+    },
+    keyPress: function (e, view) {
+      if ('keyCode' in e) {
+        return view.dispatchKeyFunction(e.keyCode, 'keyPress')
       }
     }
   }),
 
-  dispatchKeyDownFunction: function (keyCode) {
-    var keyDownActions = this.get('keyDownActions');
+  dispatchKeyFunction: function (keyCode, action) {
+    var keyActions = this.get(`${action}Actions`);
     var codeName = `key${keyCode}`;
     var prettyName = keymap[keyCode];
 
-    if (keyDownActions) {
-      if (codeName in keyDownActions) {
-        return keyDownActions[codeName].apply(this);
+    if (keyActions) {
+      if (codeName in keyActions) {
+        return keyActions[codeName].apply(this);
       }
 
-      if (prettyName in keyDownActions) {
-        return keyDownActions[prettyName].apply(this);
+      if (prettyName in keyActions) {
+        return keyActions[prettyName].apply(this);
       }
     }
   }
