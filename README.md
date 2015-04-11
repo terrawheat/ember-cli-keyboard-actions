@@ -50,6 +50,19 @@ keyDownActions: {
 Key names currently supported:
   - tab
   - backspace
+  - enter
+  - capsLock
+  - escape
+  - pageUp
+  - pageDown
+  - end
+  - home
+  - left
+  - up
+  - right
+  - down
+  - insert
+  - delete
 
 ## Full Example
 
