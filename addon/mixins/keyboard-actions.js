@@ -21,8 +21,8 @@ export default Ember.Mixin.create({
   }),
 
   dispatchKeyFunction: function (keyCode, action) {
-    var keyActions = this.get(`${action}Actions`);
-    var codeName = `key${keyCode}`;
+    var keyActions = this.get(action + 'Actions');
+    var codeName = 'key' + keyCode;
     var prettyName = keymap[keyCode];
 
     if (keyActions) {
