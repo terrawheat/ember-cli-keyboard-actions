@@ -27,12 +27,24 @@ export default Ember.Mixin.create({
 
     if (keyActions) {
       if (codeName in keyActions) {
-        return keyActions[codeName].apply(this);
+        return this.runKeyFunction(codeName, keyActions);
       }
 
       if (prettyName in keyActions) {
-        return keyActions[prettyName].apply(this);
+        return this.runKeyFunction(prettyName, keyActions);
       }
+    }
+  },
+
+  runKeyFunction: function (key, actions) {
+    var toRun = actions[key];
+
+    if (toRun) {
+      if (typeof toRun === 'string') {
+        return this[toRun].apply(this);
+      }
+
+      return toRun.apply(this);
     }
   }
 });

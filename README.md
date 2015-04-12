@@ -7,6 +7,13 @@ to pick up and react to.
 
 `ember install:addon ember-cli-keyboard-actions`
 
+## Changelog
+
+###v0.1.3
+
+  - Added ability to use a string as the action to have it resolve
+    a function from the view.
+
 ## Importing
 
 Simply import the mixin at the top of your component or view
@@ -45,6 +52,18 @@ keyDownActions: {
     console.log('Escape pressed');
   }
 }
+```
+
+Alternatively, setting a string as the action will attempt
+to resolve the corresponding function from the view.
+
+```
+doSomeStuff: function () {
+  console.log('Did some stuff');
+},
+keyDownActions: {
+  backspace: 'doSomeStuff'
+},
 ```
 
 Key names currently supported:
