@@ -9,6 +9,9 @@ to pick up and react to.
 
 ## Changelog
 
+###v0.1.4
+  - Fixed a 'bug' causing keycode ranges to fail.
+
 ###v0.1.3
 
   - Added ability to use a string as the action to have it resolve
