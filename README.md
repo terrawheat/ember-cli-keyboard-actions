@@ -13,6 +13,7 @@ to pick up and react to.
 
   - Added ability to use a string as the action to have it resolve
     a function from the view.
+  - Added support for a-z and 0-9 as named keys.
 
 ## Importing
 
@@ -82,6 +83,8 @@ Key names currently supported:
   - down
   - insert
   - delete
+  - a - z
+  - 0 - 9
 
 ## Full Example
 
