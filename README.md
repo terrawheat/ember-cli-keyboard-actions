@@ -14,6 +14,7 @@ to pick up and react to.
   - Added ability to use a string as the action to have it resolve
     a function from the view.
   - Added support for a-z and 0-9 as named keys.
+  - Added support for 'key range' events.
 
 ## Importing
 
@@ -23,7 +24,7 @@ Simply import the mixin at the top of your component or view
 
 and pass it to your component or view as you would any other mixin.
 
-```
+```javascript
 export default Ember.Component.extend(
   KeyboardActionsMixin,
   {
@@ -44,7 +45,7 @@ Within this object, specific key events can be defined using
 either the name of the key, or the word 'key' followed by
 the correct keyCode.
 
-```
+```javascript
 keyDownActions: {
   backspace: function () {
     console.log('Backspace pressed');
@@ -58,7 +59,7 @@ keyDownActions: {
 Alternatively, setting a string as the action will attempt
 to resolve the corresponding function from the view.
 
-```
+```javascript
 doSomeStuff: function () {
   console.log('Did some stuff');
 },
@@ -86,21 +87,45 @@ Key names currently supported:
   - a - z
   - 0 - 9
 
+Actions can also be hooked in to a number of 'range' events, for
+instance declaring a keyDownAction 'alphanumeric' will trigger
+whenever an alphanumeric key is pressed.
+
+Key ranges currently supported:
+  - alphanumeric (a-z, 0-9)
+  - alpha (a-z)
+  - numeric (0-9)
+
 ## Full Example
 
-```
+```javascript
 import Ember from 'ember';
 import KeyboardActionMixin from 'ember-cli-keyboard-actions/mixins/keyboard-actions.js';
 
 export default Ember.Component.extend(
   KeyboardActionMixin,
   {
+    doSomeStuff: function () {
+      console.log('Did some stuff');
+    },
+    recogniseAlphaEvent: function () {
+      console.log('Alpha event');
+    },
     keyDownActions: {
-      backspace: function () {
-        console.log('Backspace pressed');
-      },
-      key27: function () {
-        console.log('Escape pressed');
+      backspace: 'doSomeStuff',
+      alpha: 'recogniseAlphaEvent',
+      numeric: function () {
+        console.log('Numeric event');
+      }
+    },
+    keyUpActions: {
+      escape: function () {
+        console.log('Tab pressed on keyUp');
+      }
+    },
+    keyPressActions: {
+      key101: function () {
+        console.log('Left pressed on keyPress');
       }
     }
   }

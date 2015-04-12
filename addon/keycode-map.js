@@ -13,7 +13,7 @@ export default {
   39: 'right',
   40: 'down',
   45: 'insert',
-  46: 'delete'
+  46: 'delete',
   48: '0',
   49: '1',
   50: '2',

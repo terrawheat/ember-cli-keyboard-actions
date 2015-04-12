@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import keymap from '../keycode-map.js';
+import keyranges from '../keycode-ranges.js';
 
 export default Ember.Mixin.create({
   eventManager: Ember.Object.create({
@@ -24,6 +25,8 @@ export default Ember.Mixin.create({
     var keyActions = this.get(action + 'Actions');
     var codeName = 'key' + keyCode;
     var prettyName = keymap[keyCode];
+    var ranges = [];
+    var toRun;
 
     if (keyActions) {
       if (codeName in keyActions) {
@@ -32,6 +35,18 @@ export default Ember.Mixin.create({
 
       if (prettyName in keyActions) {
         return this.runKeyFunction(prettyName, keyActions);
+      }
+
+      if (keyCode in keyranges) {
+        ranges = keyranges[keyCode];
+
+        ranges.forEach(function (range) {
+          if (range in keyActions) {
+            toRun = range;
+          }
+        });
+
+        return this.runKeyFunction(toRun, keyActions);
       }
     }
   },
