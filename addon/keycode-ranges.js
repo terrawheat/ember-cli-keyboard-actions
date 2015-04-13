@@ -35,4 +35,4 @@ export default {
   88: ['alphanumeric', 'alpha'],
   89: ['alphanumeric', 'alpha'],
   90: ['alphanumeric', 'alpha']
-}
+};

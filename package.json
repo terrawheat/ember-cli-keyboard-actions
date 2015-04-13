@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-keyboard-actions",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "EmberCLI addon to generate components that can respond to keyboard events.",
   "directories": {
     "doc": "doc",
@@ -23,14 +23,15 @@
     "ember-cli-app-version": "0.3.3",
     "ember-cli-content-security-policy": "0.4.0",
     "ember-cli-dependency-checker": "0.0.8",
+    "ember-cli-eslint": "0.1.3",
     "ember-cli-htmlbars": "0.7.4",
     "ember-cli-ic-ajax": "0.1.1",
     "ember-cli-inject-live-reload": "^1.3.0",
     "ember-cli-qunit": "0.3.9",
     "ember-cli-uglify": "1.0.1",
     "ember-data": "1.0.0-beta.16.1",
-    "ember-export-application-global": "^1.0.2",
-    "ember-disable-prototype-extensions": "^1.0.0"
+    "ember-disable-prototype-extensions": "^1.0.0",
+    "ember-export-application-global": "^1.0.2"
   },
   "keywords": [
     "ember-addon",

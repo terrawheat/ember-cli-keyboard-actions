@@ -16,7 +16,7 @@ export default Ember.Mixin.create({
     },
     keyPress: function (e, view) {
       if ('keyCode' in e) {
-        return view.dispatchKeyFunction(e.keyCode, 'keyPress')
+        return view.dispatchKeyFunction(e.keyCode, 'keyPress');
       }
     }
   }),
