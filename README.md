@@ -98,6 +98,7 @@ Key names currently supported:
   - down
   - insert
   - delete
+  - space
   - a - z
   - 0 - 9
 

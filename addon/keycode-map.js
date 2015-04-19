@@ -4,6 +4,7 @@ export default {
   13: 'enter',
   20: 'capsLock',
   27: 'escape',
+  32: 'space',
   33: 'pageUp',
   34: 'pageDown',
   35: 'end',

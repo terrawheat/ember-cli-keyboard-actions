@@ -82,7 +82,11 @@ FunctionResolver.prototype.resolveKeyRange = function resolveKR(keyCode) {
     });
   }
 
-  return toRun;
+  if (toRun) {
+    return this.actions[toRun];
+  }
+
+  return false;
 };
 
 FunctionResolver.prototype.resolveCatchAll = function resolveCA() {

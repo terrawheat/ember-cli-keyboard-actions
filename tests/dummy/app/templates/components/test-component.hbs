@@ -1,7 +1,33 @@
 {{yield}}
 <input type="text">
-<ul>
-  {{#each key in keysPressed}}
-    <li>{{key}} Pressed</li>
-  {{/each}}
-</ul>
+<div>
+  <h1>Any Action</h1>
+  <ul>
+    {{#each key in keyDownAny}}
+      <li>{{key}} Pressed</li>
+    {{/each}}
+  </ul>
+
+  <h1>Range Action</h1>
+  <ul>
+    {{#each key in keyDownRange}}
+      <li>{{key}} Pressed</li>
+    {{/each}}
+  </ul>
+</div>
+
+<div>
+  <h1>Pretty Action</h1>
+  <ul>
+    {{#each key in keyDownPretty}}
+      <li>{{key}} Pressed</li>
+    {{/each}}
+  </ul>
+
+  <h1>Single Action</h1>
+  <ul>
+    {{#each key in keyDownSingle}}
+      <li>{{key}} Pressed</li>
+    {{/each}}
+  </ul>
+</div>

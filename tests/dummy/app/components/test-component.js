@@ -4,13 +4,49 @@ import KAM from 'ember-cli-keyboard-actions/mixins/keyboard-actions';
 
 export default Ember.Component.extend(KAM, {
   layout: layout,
-  keysPressed: Ember.A([]),
+  keyDownAny: Ember.A([]),
+  keyDownRange: Ember.A([]),
+  keyDownPretty: Ember.A([]),
+  keyDownSingle: Ember.A([]),
 
   updateKeyList: function (keyPressed) {
-    this.keysPressed.pushObject(keyPressed);
+    this.keyDownAny.pushObject(keyPressed);
   },
 
   keyDownActions: {
-    'any': 'updateKeyList'
+    'any': 'updateKeyList',
+    'alpha': function (code) {
+      this.keyDownRange.pushObject('keyDown:' + code);
+    },
+    'space': function (code) {
+      this.keyDownPretty.pushObject('keyDown:' + code);
+    },
+    'key39': function (code) {
+      this.keyDownSingle.pushObject('keyDown:' + code);
+    }
+  },
+  keyUpActions: {
+    'any': 'updateKeyList',
+    'alpha': function (code) {
+      this.keyDownRange.pushObject('keyUp:' + code);
+    },
+    'space': function (code) {
+      this.keyDownPretty.pushObject('keyUp:' + code);
+    },
+    'key39': function (code) {
+      this.keyDownSingle.pushObject('keyUp:' + code);
+    }
+  },
+  keyPressActions: {
+    'any': 'updateKeyList',
+    'alpha': function (code) {
+      this.keyDownRange.pushObject('keyPress::' + code);
+    },
+    'space': function (code) {
+      this.keyDownPretty.pushObject('keyPress::' + code);
+    },
+    'key39': function (code) {
+      this.keyDownSingle.pushObject('keyPress::' + code);
+    }
   }
 });
