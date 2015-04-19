@@ -4,11 +4,13 @@ import KAM from 'ember-cli-keyboard-actions/mixins/keyboard-actions';
 
 export default Ember.Component.extend(KAM, {
   layout: layout,
-  keysPressed: [],
+  keysPressed: Ember.A([]),
+
+  updateKeyList: function (keyPressed) {
+    this.keysPressed.pushObject(keyPressed);
+  },
 
   keyDownActions: {
-    'any': function () {
-      debugger;
-    }
+    'any': 'updateKeyList'
   }
 });

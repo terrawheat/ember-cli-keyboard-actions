@@ -9,6 +9,12 @@ to pick up and react to.
 
 ## Changelog
 
+###v0.2.0
+
+  - Added a catch-all 'any' range that will fire on all keypresses.
+  - The keyCode of the pressed key will now be passed to the handler.
+  - Added code documentation
+
 ###v0.1.5
 
   - Run through ESLint for stricter linting checks.
@@ -102,6 +108,7 @@ Key ranges currently supported:
   - alphanumeric (a-z, 0-9)
   - alpha (a-z)
   - numeric (0-9)
+  - any (ALL keys)
 
 ## Full Example
 
