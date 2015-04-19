@@ -1,14 +1,12 @@
 /**
  * @module ember-cli-keyboard-actions/mixins/keyboard-actions
  * @requires ember
- * @requires keycode-map
- * @requires keycode-ranges
+ * @requires ember-cli-keyboard-actions/function-resolver
  * @author Matt Wheatley <terrawheat@gmail.com>
  * @license MIT
  */
 import Ember from 'ember';
-import keymap from '../keycode-map.js';
-import keyranges from '../keycode-ranges.js';
+import FunctionResolver from '../function-resolver';
 
 export default Ember.Mixin.create({
   /**
@@ -82,77 +80,25 @@ export default Ember.Mixin.create({
     var keyActions = this.get(action + 'Actions');
 
     /**
-     * String representation of the generic (non-named)
-     * key handler to attempt to resolve. Follows the
-     * convention of 'key' + KeyboardEvent keyCode.
-     * i.e., key37, key12
-     * @var codeName
+     * An instance of FunctionResolver that will be used to
+     * decide which function to run.
+     * @var functionResolver
      */
-    var codeName = 'key' + keyCode;
+    var functionResolver = new FunctionResolver(keyActions, this);
 
     /**
-     * A String representing a human readable representation
-     * of the key pressed that will attempt to be resolved in
-     * to a function.
-     * i.e., tab, space
-     * @var prettyName
+     * The function that has been resolved
+     * @var fn {Function}
      */
-    var prettyName = keymap[keyCode];
-
-    /**
-     * Used by the key range resolving code to store the
-     * key ranges associated with the key pressed.
-     * @var ranges
-     */
-    var ranges = [];
-
-    /**
-     * Used to store the name of the key range function
-     * to run
-     * @var toRun
-     */
-    var toRun;
+    var fn;
 
     /** First check to see if we actually have any actions to run **/
     if (keyActions) {
-      /**
-       * Priority 1: Resolve by keyCode (key37)
-       */
-      if (codeName in keyActions) {
-        return this.runKeyFunction(codeName, keyActions, keyCode);
+      fn = functionResolver.resolve(keyCode);
+
+      if (fn) {
+        this.runKeyFunction(fn, keyCode);
       }
-
-      /**
-       * Priority 2: Resolve by human readable name (tab)
-       */
-      if (prettyName in keyActions) {
-        return this.runKeyFunction(prettyName, keyActions, keyCode);
-      }
-
-      /**
-       * Priority 3: Resolve key range function
-       */
-      if (keyCode in keyranges) {
-        ranges = keyranges[keyCode];
-
-        ranges.forEach(function (range) {
-          if (range in keyActions) {
-            toRun = range;
-          }
-        });
-
-        if (toRun) {
-          return this.runKeyFunction(toRun, keyActions, keyCode);
-        }
-      }
-
-      /**
-       * Priority 4: Resolve an 'any' function
-       */
-      if ('any' in keyActions) {
-        return this.runKeyFunction('any', keyActions, keyCode);
-      }
-
       /** ... and if no action found, return true to allow bubbling **/
       return true;
     }
@@ -160,24 +106,13 @@ export default Ember.Mixin.create({
 
   /**
    * Function that actually handles the calling of the action
-   * handler. If a string is found where a function should be
-   * it will attempt to delegate to a function with that name.
+   * handler.
    * @function runKeyFunction
-   * @param {String} fn - name of function to run
-   * @param {Object} actions - list of all possible actions
+   * @param {Function} fn - function to run
    * @param {Number|Object} data - to be passed to the handler
    * @returns {Boolean} - Used to continue/halt propagation
    */
-  runKeyFunction: function (fn, actions, data) {
-    var toRun = actions[fn];
-    var fnData = data || {};
-
-    if (toRun) {
-      if (typeof toRun === 'string') {
-        return this[toRun].call(this, fnData);
-      }
-
-      return toRun.call(this, fnData);
-    }
+  runKeyFunction: function (fn, data) {
+    return fn.call(this, data);
   }
 });

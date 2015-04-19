@@ -13,6 +13,7 @@ to pick up and react to.
 
   - Added a catch-all 'any' range that will fire on all keypresses.
   - The keyCode of the pressed key will now be passed to the handler.
+  - Abstracted function resolving code out to a separate class.
   - Added code documentation
 
 ###v0.1.5
