@@ -9,6 +9,11 @@ to pick up and react to.
 
 ## Changelog
 
+###v0.2.1
+
+  - Fixed issue where returning true/false from an action wouldn't
+    alter the bubbling of the event.
+
 ###v0.2.0
 
   - Added a catch-all 'any' range that will fire on all keypresses.

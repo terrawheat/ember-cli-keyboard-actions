@@ -97,7 +97,7 @@ export default Ember.Mixin.create({
       fn = functionResolver.resolve(keyCode);
 
       if (fn) {
-        this.runKeyFunction(fn, keyCode);
+        return this.runKeyFunction(fn, keyCode);
       }
       /** ... and if no action found, return true to allow bubbling **/
       return true;
