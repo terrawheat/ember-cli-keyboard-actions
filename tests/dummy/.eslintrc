@@ -9,6 +9,7 @@
         "modules": true,
         "module": true
     },
+    "parser": "babel-eslint",
     "rules": {
         "indent": [2, 2],
         "no-alert": 2,

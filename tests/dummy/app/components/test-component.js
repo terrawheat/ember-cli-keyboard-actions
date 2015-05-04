@@ -1,3 +1,4 @@
+/*eslint new-cap:0*/
 import Ember from 'ember';
 import layout from '../templates/components/test-component';
 import KAM from 'ember-cli-keyboard-actions/mixins/keyboard-actions';
