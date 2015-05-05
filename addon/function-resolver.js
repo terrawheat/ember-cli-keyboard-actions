@@ -3,8 +3,8 @@
  * @author Matt Wheatley <terrawheat@gmail.com>
  * @license MIT
  */
-import keymap from './keycode-map.js';
-import keyranges from './keycode-ranges.js';
+import keymap from 'ember-cli-keyboard-actions/keycode-map';
+import keyranges from 'ember-cli-keyboard-actions/keycode-ranges';
 
 /**
  * @constructor FunctionResolver
