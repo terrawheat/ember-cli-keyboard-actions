@@ -14,6 +14,34 @@ export default Ember.Component.extend(KAM, {
     this.keyDownAny.pushObject(keyPressed);
   },
 
+  keyChordActions: {
+    'ctrl': {
+      'a': function () {
+        console.log('Ctrl + A pressed');
+      }
+    },
+    'alt': {
+      'a': function () {
+        console.log('Alt + A pressed');
+      }
+    },
+    'shift': {
+      'a': function () {
+        console.log('Shift + A pressed');
+      }
+    },
+    'ctrl.alt': {
+      'a': function () {
+        console.log('Ctrl, Alt + A pressed');
+      }
+    },
+    'ctrl.alt.shift': {
+      'a': function () {
+        console.log('Ctrl, Shift, Alt + A pressed');
+      }
+    }
+  },
+
   keyDownActions: {
     'any': 'updateKeyList',
     'alpha': function (code) {

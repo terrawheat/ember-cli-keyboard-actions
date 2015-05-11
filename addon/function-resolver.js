@@ -12,10 +12,11 @@ import keyranges from 'ember-cli-keyboard-actions/keycode-ranges';
  * @param {Object} [view] - object representing view
  */
 function FunctionResolver(actions, view) {
-  this.resolvers = ['KeyCode', 'PrettyName', 'KeyRange', 'CatchAll'];
+  this.resolvers = ['Chords', 'KeyCode', 'PrettyName', 'KeyRange', 'CatchAll'];
   this.keyCodePrefix = 'key';
   this.view = view || {};
   this.actions = actions;
+  this.chords = view.chordState;
 }
 
 /**
@@ -26,12 +27,16 @@ function FunctionResolver(actions, view) {
  * @param {String} keyCode - keyCode to attempt to resolve
  * @returns {Function|Boolean} - Resolved function, or false
  */
-FunctionResolver.prototype.resolve = function resolve(keyCode) {
+FunctionResolver.prototype.resolve = function resolve(keyCode, ignoreChords) {
   var i = 0;
   var resolver;
   var fn = false;
 
   for (i = 0; i < this.resolvers.length; i++) {
+    if (ignoreChords && this.resolvers[i] === 'Chords') {
+      continue;
+    }
+
     resolver = 'resolve' + this.resolvers[i];
     fn = this[resolver](keyCode);
 
@@ -52,6 +57,25 @@ FunctionResolver.prototype.resolveKeyCode = function resolveKC(keyCode) {
 
   if (kc in this.actions) {
     return this.actions[kc];
+  }
+
+  return false;
+};
+
+FunctionResolver.prototype.resolveChords = function resolveChords(keyCode) {
+  var that = this;
+  var currentChords = Object.keys(this.chords).filter(function (chord) {
+    return that.chords[chord];
+  });
+  var currentKey = currentChords.join('.');
+
+  if (currentChords.length <= 0) {
+    return false;
+  }
+
+  if (currentKey in this.actions) {
+    this.actions = this.actions[currentKey];
+    return this.resolve(keyCode, false);
   }
 
   return false;

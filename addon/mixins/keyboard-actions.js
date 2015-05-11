@@ -10,6 +10,33 @@ import FunctionResolver from '../function-resolver';
 
 export default Ember.Mixin.create({
   /**
+   * Monitors and manages the current state of
+   * modifier keys currently held by the user.
+   * @property chordState
+   * @property chordState.ctrl Maps to Control/Command
+   * @property chordState.alt Maps to Alt
+   * @property chordState.shift Maps to shift key
+   */
+  chordState: {
+    ctrl: false,
+    alt: false,
+    shift: false
+  },
+
+  /**
+   * Returns a boolean indicating whether we are in
+   * any chorded state, to ascertain wheter the
+   * chordActions should take priority.
+   * @function isChordPressed
+   * @returns {Boolean}
+   */
+  isChordPressed: Ember.computed('chordState.ctrl', 'chordState.alt', 'chordState.shift', function () {
+    var state = this.get('chordState');
+    return Object.keys(state).some(function (chord) {
+      return state[chord];
+    });
+  }),
+  /**
    * Sets the eventManager property of an Ember View
    * to include the required hooks to trigger the
    * user-defined handlers.
@@ -29,6 +56,7 @@ export default Ember.Mixin.create({
      */
     keyDown: function (e, view) {
       if ('keyCode' in e) {
+        view.refreshChordState.apply(view, [e]);
         return view.dispatchKeyFunction(e.keyCode, 'keyDown');
       }
     },
@@ -43,6 +71,7 @@ export default Ember.Mixin.create({
      */
     keyUp: function (e, view) {
       if ('keyCode' in e) {
+        view.refreshChordState.apply(view, [e]);
         return view.dispatchKeyFunction(e.keyCode, 'keyUp');
       }
     },
@@ -63,6 +92,20 @@ export default Ember.Mixin.create({
   }),
 
   /**
+   * Each time a key is pressed, the internal representation
+   * of the chord map is updated.
+   * @function refreshChordState
+   * @property {KeyboardEvent} e - Currently handled keyboard event
+   */
+  refreshChordState: function (event) {
+    this.setProperties({
+      'chordState.ctrl': event.ctrlKey,
+      'chordState.alt': event.altKey,
+      'chordState.shift': event.shiftKey
+    });
+  },
+
+  /**
    * Attempts to resolve a function from the view that
    * should be run in response to the event and keyCode.
    * @function dispatchKeyFuntion
@@ -77,7 +120,14 @@ export default Ember.Mixin.create({
      * i.e., keyDownActions, keyUpActions
      * @var keyActions
      */
-    var keyActions = this.get(action + 'Actions');
+    var keyActions;
+
+    //Make sure chord actions only get run once
+    if (this.get('isChordPressed') === true && action === 'keyUp') {
+      keyActions = this.get('keyChordActions');
+    } else {
+      keyActions = this.get(action + 'Actions');
+    }
 
     /**
      * An instance of FunctionResolver that will be used to

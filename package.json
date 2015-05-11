@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-keyboard-actions",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "EmberCLI addon to generate components that can respond to keyboard events.",
   "directories": {
     "doc": "doc",

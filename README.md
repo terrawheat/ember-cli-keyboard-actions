@@ -9,6 +9,10 @@ to pick up and react to.
 
 ## Changelog
 
+###v0.3.0
+
+  - Added ability to add actions for chords
+
 ###v0.2.1
 
   - Fixed issue where returning true/false from an action wouldn't
@@ -116,6 +120,42 @@ Key ranges currently supported:
   - alpha (a-z)
   - numeric (0-9)
   - any (ALL keys)
+
+## Chords / Shortcuts
+
+A special set of actions can be defined under the key `keyChordActions`
+that can be used to assign actions to keys pressed while CTRL, ALT or
+SHIFT are being held down.
+
+```javascript
+  keyChordActions: {
+    'ctrl': {
+      'a': function () {
+        console.log('Ctrl + A pressed');
+      }
+    },
+    'alt': {
+      'a': function () {
+        console.log('Alt + A pressed');
+      }
+    },
+    'shift': {
+      'a': function () {
+        console.log('Shift + A pressed');
+      }
+    },
+    'ctrl.alt': {
+      'a': function () {
+        console.log('Ctrl, Alt + A pressed');
+      }
+    },
+    'ctrl.alt.shift': {
+      'a': function () {
+        console.log('Ctrl, Shift, Alt + A pressed');
+      }
+    }
+  },
+```
 
 ## Full Example
 
