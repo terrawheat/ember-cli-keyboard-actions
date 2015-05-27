@@ -1,4 +1,5 @@
 export default {
+  0: 'space', // Issue #1: Firefox sometimes maps space to 0??
   8: 'backspace',
   9: 'tab',
   13: 'enter',
