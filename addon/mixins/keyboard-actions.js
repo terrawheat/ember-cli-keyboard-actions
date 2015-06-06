@@ -56,7 +56,9 @@ export default Ember.Mixin.create({
      */
     keyDown: function (e, view) {
       if ('keyCode' in e) {
-        view.refreshChordState.apply(view, [e]);
+        if ('refreshChordState' in view) {
+          view.refreshChordState.apply(view, [e]);
+        }
         return view.dispatchKeyFunction(e.keyCode, 'keyDown');
       }
     },
@@ -71,7 +73,9 @@ export default Ember.Mixin.create({
      */
     keyUp: function (e, view) {
       if ('keyCode' in e) {
-        view.refreshChordState.apply(view, [e]);
+        if ('refreshChordState' in view) {
+          view.refreshChordState.apply(view, [e]);
+        }
         return view.dispatchKeyFunction(e.keyCode, 'keyUp');
       }
     },
