@@ -43,7 +43,7 @@ to pick up and react to.
 
 Simply import the mixin at the top of your component or view
 
-`import KeyboardActionsMixin from 'ember-cli-keyboard-actions/mixins/keyboard-actions.js'`
+`import KeyboardActionsMixin from 'ember-cli-keyboard-actions/mixins/keyboard-actions'`
 
 and pass it to your component or view as you would any other mixin.
 
